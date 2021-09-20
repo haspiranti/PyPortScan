@@ -28,7 +28,14 @@ def time_convert(sec):
     print("Time elapsed: {0}:{1}:{2}".format(int(hour),int(min),int(sec)))
 
 def helppage():
-    print("this is the help page. nothings here. good luck.")
+    print("\n\nPyPortScan v.1.1 created by Hayden Aspiranti. 2021.")
+    print("-" * 50)
+    print("HELP MENU\n\n")
+    print("Ports are scanned by default with 100 threads set at a 1 second timeout.\n")
+    print("-p       --indiv-port | Scan individual ports. Use syntax '-p [port] [port] ... '")
+    print("-ap       --all-ports | Scan all 65535 ports.")
+    print("-f             --fast | Set total threads to 500. There is a chance some open ports may be missed.")
+    print("-s             --slow | Set timeout to 2 seconds. This is beneficial for a more thorough approach.")
     exit()
 
 if len(sys.argv) >= 2:
@@ -37,7 +44,7 @@ if len(sys.argv) >= 2:
     # Translate the hostname to IPv4
     target = socket.gethostbyname(sys.argv[1])
 else:
-    print("Unknown argument. Refer to --help for more information")
+    print("Unknown argument. Refer to --help for more information.")
 
 print("-" * 50)
 print("Scanning Target: " + target)
@@ -58,17 +65,17 @@ for arg in sys.argv:
         threads = 500
     elif arg == "--help":
         helppage()
-    elif arg == "-p":
+    elif arg == "-p" or arg == "--indiv-port":
         specificPorts = True
     elif specificPorts == True:
         try:
             portsList.append(int(arg))
         except:
-            print("Unknown argument. Refer to --help for more information")
+            print("Unknown argument. Refer to --help for more information.")
             exit()
-    else:
-        print("Unknown argument. Refer to --help for more information")
-        exit()
+    # else:
+    #     print("Unknown argument. Refer to --help for more information")
+    #     exit()
 
 def portscan(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
